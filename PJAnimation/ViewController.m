@@ -17,6 +17,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    heightOfScreen =[[UIScreen mainScreen]bounds].size.height;
+    widthOfScreen =[[UIScreen mainScreen]bounds].size.width;
+    
+    UIPanGestureRecognizer *panGesture =[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    self.boll.userInteractionEnabled =YES;
+    [self.boll addGestureRecognizer:panGesture];
+    
+    
+}
+-(void)handlePan: (UIPanGestureRecognizer *)Gesture{
+    CGRect originalFrame;
+    if ([Gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+        if (Gesture.state == UIGestureRecognizerStateBegan) {
+            NSLog(@"Stat Began");
+            originalFrame =Gesture.view.frame;
+        }
+        else if (Gesture.state ==UIGestureRecognizerStateChanged){
+            
+             CGPoint delta = [Gesture locationInView:self.view];
+            Gesture.view.center =delta;
+        }
+        else if (Gesture.state ==UIGestureRecognizerStateEnded){
+            
+        }
+        
+    }
+    else{
+        NSLog(@"Pan Gesture Not Detected");
+    }
 }
 
 - (void)didReceiveMemoryWarning {
